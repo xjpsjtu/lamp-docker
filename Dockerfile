@@ -2,8 +2,8 @@ FROM ubuntu:latest
 MAINTAINER Matej Kramny <matej@matej.me>
 
 RUN apt-get update
-RUN apt-get install -y apache2 php-pear php5-curl php5-mysql php5-odbc php5-imagick php5-mcrypt mysql-client curl git postfix libsasl2-modules rsyslog python-setuptools libapache2-mod-php5 php5-imap
-RUN apt-get install -y imagemagick php5-imagick php5-gd
+RUN apt-get install -y apache2 php-pear php-curl php-mysql php-odbc php-imagick php-mcrypt mysql-client curl git postfix libsasl2-modules rsyslog python-setuptools libapache2-mod-php php-imap
+RUN apt-get install -y imagemagick php-imagick php-gd
 RUN pear install Mail Mail_Mime Net_SMTP Net_Socket Spreadsheet_Excel_Writer XML_RPC
 RUN php5enmod mcrypt
 
@@ -11,7 +11,7 @@ RUN apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor
 
 RUN a2enmod rewrite
-RUN a2enmod php5
+RUN a2enmod php
 
 RUN rm -f /etc/apache2/sites-enabled/000-default.conf
 
@@ -34,8 +34,8 @@ RUN chmod o+rwx /var/spool/postfix/maildrop
 RUN chmod o+x /var/spool/postfix/public
 
 # Fix session write warnings
-RUN chown www-data:www-data /var/lib/php5
-RUN chmod g+rwx /var/lib/php5
+RUN chown www-data:www-data /var/lib/php
+RUN chmod g+rwx /var/lib/php
 
 RUN apachectl configtest
 RUN rm -rf /var/www
